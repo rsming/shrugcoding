@@ -1,0 +1,45 @@
+pipeline {
+    agent none
+    parameters {
+        choice(name: 'AWS_NETWORK_STACK', choices: ['deploy', 'destroy'], description: 'Create/destroy shrugcoding network stack')
+    }
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+        AWS_ENV_NAME = 'dev'
+        AWS_REGION   = 'us-east-1'
+        AWS_NETWORK_STACK_NAME = 'shrugcoding-network'
+    }
+    stages {
+        stage('aws') {
+            agent {
+                dockerfile {
+                    filename 'dockerfile'
+                    dir 'cloudformation'
+                    args "--env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
+                    reuseNode true
+                }
+            }
+            steps {
+                dir('cloudformation') {
+                    script {
+                        if (params.AWS_VISIT_APP_STACK == 'deploy') {
+                            sh """
+                                aws cloudformation deploy --parameter-overrides EnvironmentName=${AWS_ENV_NAME} \
+                                    --region ${AWS_REGION} --template-file visit.cform.json \
+                                    --stack-name ${AWS_NETWORK_STACK_NAME}
+                                aws cloudformation wait stack-create-complete --region ${AWS_REGION} --stack-name ${AWS_NETWORK_STACK_NAME}
+                            """
+                        }
+                        if (params.AWS_VISIT_APP_STACK == 'destroy') {
+                            sh """
+                                aws cloudformation delete-stack --region ${AWS_REGION} --stack-name ${AWS_NETWORK_STACK_NAME}
+                                aws cloudformation wait stack-delete-complete --region ${AWS_REGION} --stack-name ${AWS_NETWORK_STACK_NAME}
+                            """
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
