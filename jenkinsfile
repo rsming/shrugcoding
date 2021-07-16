@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir('cloudformation') {
                     script {
-                        if (params.AWS_VISIT_APP_STACK == 'deploy') {
+                        if (params.AWS_NETWORK_STACK == 'deploy') {
                             sh """
                                 aws cloudformation deploy --parameter-overrides EnvironmentName=${AWS_ENV_NAME} \
                                     --region ${AWS_REGION} --template-file visit.cform.json \
@@ -31,7 +31,7 @@ pipeline {
                                 aws cloudformation wait stack-create-complete --region ${AWS_REGION} --stack-name ${AWS_NETWORK_STACK_NAME}
                             """
                         }
-                        if (params.AWS_VISIT_APP_STACK == 'destroy') {
+                        if (params.AWS_NETWORK_STACK == 'destroy') {
                             sh """
                                 aws cloudformation delete-stack --region ${AWS_REGION} --stack-name ${AWS_NETWORK_STACK_NAME}
                                 aws cloudformation wait stack-delete-complete --region ${AWS_REGION} --stack-name ${AWS_NETWORK_STACK_NAME}
