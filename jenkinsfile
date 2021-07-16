@@ -11,7 +11,7 @@ pipeline {
         AWS_NETWORK_STACK_NAME = 'shrugcoding-network'
     }
     stages {
-        stage('aws') {
+        stage('network-stack') {
             agent {
                 dockerfile {
                     filename 'dockerfile'
