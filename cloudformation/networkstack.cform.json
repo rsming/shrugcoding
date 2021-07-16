@@ -158,7 +158,7 @@
         "bucketLandingPage" : {
             "Type" : "AWS::S3::Bucket",
             "Properties" : {
-                "Tags": [ { "Key": "Name", "Value": "landing-page" } ]
+                "Tags": [ { "Key": "Name", "Value": "shrugcoding-landing-page" } ]
             }
         }
     },
