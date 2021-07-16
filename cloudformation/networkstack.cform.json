@@ -157,8 +157,8 @@
         },
         "bucketLandingPage" : {
             "Type" : "AWS::S3::Bucket",
-            "BucketName" : "landing-page",
             "Properties" : {
+                "BucketName" : "landing-page",
                 "Tags": [ { "Key": "Name", "Value": "landing-page" } ]
             }
         }
