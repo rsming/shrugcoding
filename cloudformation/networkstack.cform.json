@@ -11,6 +11,11 @@
                 "prod"
             ]
         },
+        "HostedZoneName": {
+            "Description": "Do not forget to add '.' (period) at the end. For example \"shrugcoding.click.\"",
+            "Type": "String",
+            "Default": "shrugcoding.click."
+        },
         "VpcCIDR": {
             "Description": "Please enter the IP range (CIDR notation) for this VPC",
             "Type": "String",
@@ -156,7 +161,26 @@
             }
         },
         "bucketLandingPage" : {
-            "Type" : "AWS::S3::Bucket"
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "AccessControl": "PublicRead",
+                "WebsiteConfiguration": {
+                    "IndexDocument": "index.html"
+                }
+            }
+        },
+        "recsetandingPage": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "Name": { "Ref": "HostedZoneName" },
+                "HostedZoneName": { "Ref": "HostedZoneName" },
+                "Type": "A",
+                "AliasTarget": {
+                    "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DNSName" ] },
+                    "EvaluateTargetHealth" : true,
+                    "HostedZoneId" : { "Fn::GetAtt": [ "elbVisit", "CanonicalHostedZoneID" ] }
+                }
+            }
         }
     },
     "Outputs": {
