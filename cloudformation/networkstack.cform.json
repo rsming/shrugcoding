@@ -176,7 +176,7 @@
                 "HostedZoneName": { "Ref": "HostedZoneName" },
                 "Type": "A",
                 "AliasTarget": {
-                    "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DNSName" ] },
+                    "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DomainName" ] },
                     "EvaluateTargetHealth" : true,
                     "HostedZoneId" : { "Fn::GetAtt": [ "elbVisit", "CanonicalHostedZoneID" ] }
                 }
