@@ -19,7 +19,7 @@
         "HostedZoneId": {
             "Description": "hosted zone ID for the region that the bucket created in: US East (N. Virginia) s3-website-us-east-1.amazonaws.com",
             "Type": "String",
-            "Default": "Z3AQBSTGFYJSTF"
+            "Default": "Z3AQBSTGFYJSTF."
         },
         "VpcCIDR": {
             "Description": "Please enter the IP range (CIDR notation) for this VPC",
