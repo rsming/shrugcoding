@@ -169,7 +169,7 @@
                 }
             }
         },
-        "recsetandingPage": {
+        "recsetLandingPage": {
             "Type": "AWS::Route53::RecordSet",
             "Properties": {
                 "Name": { "Ref": "HostedZoneName" },
@@ -178,7 +178,7 @@
                 "AliasTarget": {
                     "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DomainName" ] },
                     "EvaluateTargetHealth" : true,
-                    "HostedZoneId" : { "Fn::GetAtt": [ "elbVisit", "CanonicalHostedZoneID" ] }
+                    "HostedZoneName": { "Ref": "HostedZoneName" }
                 }
             }
         }
