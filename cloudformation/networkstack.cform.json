@@ -177,8 +177,7 @@
                 "Type": "A",
                 "AliasTarget": {
                     "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DomainName" ] },
-                    "EvaluateTargetHealth" : true,
-                    "HostedZoneName": { "Ref": "HostedZoneName" }
+                    "EvaluateTargetHealth" : true
                 }
             }
         }
