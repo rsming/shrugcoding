@@ -19,7 +19,7 @@
         "HostedZoneId": {
             "Description": "hosted zone ID for the region that the bucket created in: US East (N. Virginia) s3-website-us-east-1.amazonaws.com",
             "Type": "String",
-            "Default": "Z3AQBSTGFYJSTF"
+            "Default": "Z06673401UW1F6Y1K18JC"
         },
         "VpcCIDR": {
             "Description": "Please enter the IP range (CIDR notation) for this VPC",
@@ -171,19 +171,6 @@
                 "AccessControl": "PublicRead",
                 "WebsiteConfiguration": {
                     "IndexDocument": "index.html"
-                }
-            }
-        },
-        "recsetLandingPage": {
-            "Type": "AWS::Route53::RecordSet",
-            "Properties": {
-                "Name": { "Ref": "HostedZoneName" },
-                "HostedZoneName": { "Ref": "HostedZoneName" },
-                "Type": "A",
-                "AliasTarget": {
-                    "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DomainName" ] },
-                    "EvaluateTargetHealth" : false,
-                    "HostedZoneId": { "Ref": "HostedZoneId" }
                 }
             }
         }
