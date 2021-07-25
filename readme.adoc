@@ -12,6 +12,13 @@
   - visit
   - stockreaper
 
+to read hosted zone ids from AWS
+
+```
+aws route53 list-hosted-zones-by-name
+```
+
+
 do not forget about icon
 try on android
  

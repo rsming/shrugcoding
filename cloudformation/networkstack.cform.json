@@ -173,6 +173,39 @@
                     "IndexDocument": "index.html"
                 }
             }
+        },
+        "recsetLandingPage": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "Name": { "Ref": "HostedZoneName" },
+                "HostedZoneName": { "Ref": "HostedZoneName" },
+                "Type": "A",
+                "AliasTarget": {
+                    "DNSName" : { "Fn::GetAtt": [ "bucketLandingPage", "DomainName" ] },
+                    "EvaluateTargetHealth" : false,
+                    "HostedZoneId": { "Ref": "HostedZoneId" }
+                }
+            }
+        },
+        "accpointLandingPage": {
+            "Type": "AWS::S3::AccessPoint",
+            "Properties": {
+                "Bucket": {
+                    "Ref": "bucketLandingPage"
+                },
+                "Name": "access-point-landing-page",
+                "VpcConfiguration": {
+                    "VpcId": {
+                        "Ref": "vpcShrugcoding"
+                    }
+                },
+                "PublicAccessBlockConfiguration": {
+                    "BlockPublicAcls": true,
+                    "IgnorePublicAcls": true,
+                    "BlockPublicPolicy": true,
+                    "RestrictPublicBuckets": true
+                }
+            }
         }
     },
     "Outputs": {
